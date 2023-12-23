@@ -31,4 +31,45 @@ const addUpgrade = async (req: Request, res: Response) => {
   }
   
 
-export { addUpgrade }
+  const editUpgrade = async (req: Request, res: Response) => {
+    try {
+      const upgradeId = req.params.id;
+      const { name, description, cost } = req.body;
+  
+      console.log(`Updating upgrade with ID: ${upgradeId}`);
+  
+      const updates: any = {};
+  
+      if (name) {
+        updates.name = name;
+        console.log(`Name updated successfully: ${name}`);
+      }
+  
+      if (description) {
+        updates.description = description;
+        console.log(`Description updated successfully: ${description}`);
+      }
+  
+      if (cost) {
+        updates.cost = cost;
+        console.log(`Cost updated successfully: ${cost}`);
+      }
+  
+      await Upgrade.update(upgradeId, updates);
+      console.log(`Upgrade updated successfully`);
+  
+      return res.json({
+        success: true,
+        message: `Upgrade information updated successfully.`,
+      });
+    } catch (error) {
+      console.error(`Error updating upgrade information: ${error}`);
+      return res.status(500).json({
+        success: false,
+        message: `Error updating upgrade information.`,
+        error: error || "Internal Server Error",
+      });
+    }
+  };
+
+export { addUpgrade, editUpgrade }
