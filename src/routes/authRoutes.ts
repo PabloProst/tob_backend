@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addUser, login, profile } from "../controllers/authController";
+import { addUser, login, profile, updateUser } from "../controllers/authController";
 import { auth } from "../middlewares/auth";
 
 
@@ -11,5 +11,7 @@ router.post('/register', addUser);
 router.post('/login', login);
 // Profile
 router.get('/profile', auth, profile);
+// Update user
+router.put('/update', auth, updateUser);
 
 export { router }

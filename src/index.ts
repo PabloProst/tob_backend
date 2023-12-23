@@ -2,6 +2,7 @@ import express from "express";
 import { AppDataSource } from "./db";
 import { router as routerUser} from "./routes/authRoutes";
 import { router as routerUpgrades } from "./routes/upgradeRoutes";
+import cors from "cors";
 
 const app = express();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 //middleware
 app.use(express.json());
+app.use(cors())
 
 // Routes
 app.use('/', routerUser);

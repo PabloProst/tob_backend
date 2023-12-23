@@ -143,4 +143,47 @@ const profile = async (req: Request, res: Response) => {
     }
   }
 
-  export { addUser, login, profile }
+// Update user
+  const updateUser = async (req: Request, res: Response) => {
+    try {
+      const userId = req.token.id;
+      const { email, name } = req.body;
+  
+      console.log(`Updating user with ID: ${userId}`);
+  
+      const updates: any = {}; 
+      if (email) {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
+        if (!emailRegex.test(email)) {
+          console.log(`Invalid email address: ${email}`);
+          return res.json({ mensaje: `Invalid email address.` });
+        }
+  
+        updates.email = email;
+        console.log(`Email updated successfully: ${email}`);
+      }
+  
+      if (name) {
+        updates.name = name;
+        console.log(`Name updated successfully: ${name}`);
+      }
+  
+      await User.update(userId, updates);
+      console.log(`User updated successfully`);
+      return res.json({
+        success: true,
+        message: `User information updated successfully.`
+      });
+    } catch (error) {
+      console.error(`Error updating user information: ${error}`);
+      return res.status(500).json({
+        success: false,
+        message: `Error updating user information.`,
+        error: error
+      });
+    }
+  };
+  
+
+  export { addUser, login, profile, updateUser }
