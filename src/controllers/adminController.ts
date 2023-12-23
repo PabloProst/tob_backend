@@ -21,4 +21,32 @@ const getAllUsers = async (req: Request, res: Response) => {
     }
 };
 
-export { getAllUsers }
+// Delete user
+const deleteUser = async (req: Request, res: Response) => {
+    try {
+        const idUser = req.body.id;
+        const user = await User.findOneBy({ id: idUser });
+
+        if (user) {
+            await User.delete({ id: idUser });
+            return res.json({
+                message: `User deleted`
+            });
+        } else {
+            return res.json({
+                success: false,
+                message: `User was not found`
+            });
+        }
+
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: `User can not be deleted`,
+            error: error
+        });
+    }
+}
+
+
+export { getAllUsers, deleteUser }
