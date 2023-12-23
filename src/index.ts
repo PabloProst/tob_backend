@@ -1,6 +1,7 @@
 import express from "express";
 import { AppDataSource } from "./db";
-import { router } from "./routes/authRoutes";
+import { router as routerUser} from "./routes/authRoutes";
+import { router as routerUpgrades } from "./routes/upgradeRoutes";
 
 const app = express();
 
@@ -11,7 +12,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Routes
-app.use('/', router);
+app.use('/', routerUser);
+app.use('/', routerUpgrades);
 
 // Server running
 app.listen(PORT, () => {
