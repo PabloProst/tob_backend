@@ -2,6 +2,7 @@ import express from "express";
 import { AppDataSource } from "./db";
 import { router as routerUser} from "./routes/authRoutes";
 import { router as routerUpgrades } from "./routes/upgradeRoutes";
+import { router as routerAdmin } from "./routes/adminRoutes";
 import cors from "cors";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors())
 // Routes
 app.use('/', routerUser);
 app.use('/', routerUpgrades);
+app.use('/', routerAdmin);
 
 // Server running
 app.listen(PORT, () => {
