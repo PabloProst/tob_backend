@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { addUser, login } from "../controllers/authController";
+import { addUser, login, profile } from "../controllers/authController";
+import { auth } from "../middlewares/auth";
 
 
 const router = Router()
@@ -8,5 +9,7 @@ const router = Router()
 router.post('/register', addUser);
 // User login
 router.post('/login', login);
+// Profile
+router.get('/profile', auth, profile);
 
 export { router }
