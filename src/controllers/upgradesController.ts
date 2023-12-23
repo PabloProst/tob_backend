@@ -31,6 +31,7 @@ const addUpgrade = async (req: Request, res: Response) => {
   }
   
 
+  // Edit upgrade
   const editUpgrade = async (req: Request, res: Response) => {
     try {
       const upgradeId = req.params.id;
@@ -72,4 +73,33 @@ const addUpgrade = async (req: Request, res: Response) => {
     }
   };
 
-export { addUpgrade, editUpgrade }
+
+  // Delete upgrade
+  const deleteUpgrade = async (req: Request, res: Response) => {
+    try {
+        const idUpgrade = Number(req.params.id);
+        const upgrade = await Upgrade.findOneBy({ id: idUpgrade });
+
+        if (upgrade) {
+            await Upgrade.delete({ id: idUpgrade });
+            return res.json({
+                success: true,
+                message: `Upgrade deleted`
+            });
+        } else {
+            return res.json({
+                success: false,
+                message: `Upgrade was not found`
+            });
+        }
+
+    } catch (error) {
+        return res.json({
+            success: false,
+            message: `Upgrade can not be deleted`,
+            error: error
+        });
+    }
+};
+
+export { addUpgrade, editUpgrade, deleteUpgrade }
