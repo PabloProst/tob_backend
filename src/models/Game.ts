@@ -14,15 +14,12 @@ export class Game extends BaseEntity {
     score!: number;
 
     @Column()
-    time!: number;
-
-    @Column()
     created_at!: Date;
 
     @Column()
     updated_at!: Date;
 
     @ManyToOne(() => User, user => user.id, { onDelete: "CASCADE" })
-    @JoinColumn({ name: "user_id" })
+    @JoinColumn({ name: "userId" })
     user!: User;
 }

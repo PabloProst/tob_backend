@@ -1,6 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class Games1703338906461 implements MigrationInterface {
+export class Games1703433119081 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -21,11 +21,6 @@ export class Games1703338906461 implements MigrationInterface {
                     },
                     {
                         name: "score",
-                        type: "int",
-                        isNullable: false,
-                    },
-                    {
-                        name: "time",
                         type: "int",
                         isNullable: false,
                     },
