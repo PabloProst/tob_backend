@@ -48,5 +48,24 @@ const deleteUser = async (req: Request, res: Response) => {
     }
 }
 
+//Get user by id
+const getUserById = async (req:Request, res:Response) => {
+    try {
+        const userId  = Number(req.params.id);
+        const user = await User.findOneBy({ id: userId });
+    
+        if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+            return res.status(200).json({
+          userId: user.id,
+          name: user.name,
+        });
+      } catch (error) {
+        console.error('Error getting user by ID:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+    };
 
-export { getAllUsers, deleteUser }
+
+export { getAllUsers, deleteUser, getUserById }
