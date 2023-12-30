@@ -102,4 +102,24 @@ const addUpgrade = async (req: Request, res: Response) => {
     }
 };
 
-export { addUpgrade, editUpgrade, deleteUpgrade }
+
+// Get all upgrades
+const getAllUpgrades = async (req: Request, res: Response) => {
+  try {
+    const upgrades = await Upgrade.find();
+    return res.json({
+      success: true,
+      message: 'Upgrades retrieved successfully.',
+      upgrades: upgrades,
+    });
+  } catch (error) {
+    console.error('Error getting upgrades:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error getting upgrades.',
+      error: error || 'Internal Server Error',
+    });
+  }
+};
+
+export { addUpgrade, editUpgrade, deleteUpgrade, getAllUpgrades }
