@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UpgradesUsers } from "./UpgradesUser";
 
 @Entity("upgrades")
 export class Upgrade extends BaseEntity {
@@ -14,5 +15,9 @@ export class Upgrade extends BaseEntity {
 
     @Column({ type: "int", nullable: false })
     cost!: number;
+
+    @OneToMany(() => UpgradesUsers, upgradesUsers => upgradesUsers.upgrade)
+    upgradesUsers!: UpgradesUsers[];
+
 
 }

@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { addUpgrade, deleteUpgrade, editUpgrade, getAllUpgrades } from "../controllers/upgradesController";
-import { isAdmin } from "../middlewares/isAdmin";
-import { auth } from "../middlewares/auth";
+import { addUpgrade, addUpgradeUser, deleteUpgrade, editUpgrade, getAllUpgrades } from "../controllers/upgradesController";
+
 
 
 const router = Router()
@@ -14,5 +13,7 @@ router.put('/editupgrade/:id', editUpgrade);
 router.delete('/deleteupgrade/:id', deleteUpgrade);
 // Get all upgrades
 router.get('/upgrades', getAllUpgrades);
+// New upgrade_user
+router.post('/newupgradeuser', addUpgradeUser)
 
 export { router }

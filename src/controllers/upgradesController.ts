@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Upgrade } from "../models/Upgrades";
+import { User } from "../models/User";
+import { UpgradesUsers } from "../models/UpgradesUser";
 
 // New upgrade
 const addUpgrade = async (req: Request, res: Response) => {
@@ -122,4 +124,35 @@ const getAllUpgrades = async (req: Request, res: Response) => {
   }
 };
 
-export { addUpgrade, editUpgrade, deleteUpgrade, getAllUpgrades }
+
+// Add upgrade_user
+const addUpgradeUser = async (req: Request, res: Response) => {
+  try {
+    const upgrade_id = req.body.upgrade;
+    const user_id = req.body.user;
+
+    const newUpgradeUser = await UpgradesUsers.create({
+      upgrade_id: upgrade_id,
+      user_id: user_id
+    }).save();
+
+    return res.json({
+      success: true,
+      message: 'Created succesfully',
+      token: newUpgradeUser
+    });
+  } catch (error) {
+    return res.status(500).json(
+      {
+        success: false,
+        message: `Can not be created.`,
+        error: error
+      }
+    );
+  }
+}
+
+
+
+
+export { addUpgrade, editUpgrade, deleteUpgrade, getAllUpgrades, addUpgradeUser }
