@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addUpgrade, addUpgradeUser, deleteUpgrade, editUpgrade, getAllUpgrades } from "../controllers/upgradesController";
+import { addUpgrade, addUpgradeUser, deleteUpgrade, editUpgrade, getAllUpgrades, getUpgradesByUserId } from "../controllers/upgradesController";
 
 
 
@@ -14,6 +14,8 @@ router.delete('/deleteupgrade/:id', deleteUpgrade);
 // Get all upgrades
 router.get('/upgrades', getAllUpgrades);
 // New upgrade_user
-router.post('/newupgradeuser', addUpgradeUser)
+router.post('/newupgradeuser', addUpgradeUser);
+// Get Badges by ID
+router.get('/myupgrades/:user_id', getUpgradesByUserId);
 
 export { router }

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Upgrade } from "../models/Upgrades";
 import { User } from "../models/User";
 import { UpgradesUsers } from "../models/UpgradesUser";
+import { getRepository } from "typeorm";
 
 // New upgrade
 const addUpgrade = async (req: Request, res: Response) => {
@@ -150,8 +151,33 @@ const addUpgradeUser = async (req: Request, res: Response) => {
       }
     );
   }
-}
+};
 
+// Get upgrades by id
+export const getUpgradesByUserId = async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.user_id);
+    console.log('User ID:', userId);
+
+    const upgrades = await UpgradesUsers.find({
+      where: { user_id: userId },
+      relations: ['upgrade'],
+    });
+
+    return res.json({
+      success: true,
+      message: 'Upgrades retrieved successfully.',
+      upgrades,
+    });
+  } catch (error) {
+    console.error('Error retrieving upgrades:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error,
+    });
+  }
+};
 
 
 
